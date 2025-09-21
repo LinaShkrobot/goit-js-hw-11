@@ -26,7 +26,7 @@ form.addEventListener('submit', event => {
           position: 'topRight',
           backgroundColor: '#ef4040',
           messageColor: '#fff',
-          iconUrl: './public/bi_x-octagon.svg',
+          iconUrl: `${import.meta.env.BASE_URL}bi_x-octagon.svg`,
         });
         formInput.value = '';
         return;
