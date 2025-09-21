@@ -35,3 +35,15 @@
 .form-btn:hover {
   background: #6c8cff;
 }
+
+.iziToast {
+  max-width: 432px;
+}
+
+.iziToast .iziToast-message {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: 0.03em;
+  color: #fafafb;
+}

@@ -1,12 +1,6 @@
-import iziToast from 'izitoast';
-import 'izitoast/dist/css/iziToast.min.css';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import { getImagesByQuery } from './pixabay-api';
-
-const form = document.querySelector('.form');
-const formInput = document.querySelector('.form-input');
-const container = document.querySelector('.gallery');
+const galleryContainer = document.querySelector('.gallery');
 const loader = document.querySelector('.loader');
 
 const lightbox = new SimpleLightbox('.gallery a', {
@@ -15,39 +9,8 @@ const lightbox = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
 
-form.addEventListener('submit', event => {
-  event.preventDefault();
-  const query = formInput.value.trim();
-  loader.classList.remove('hidden');
-
-  getImagesByQuery(query)
-    .then(res => {
-      console.log(res.data.hits);
-
-      if (res.data.hits.length === 0) {
-        iziToast.error({
-          message:
-            'Sorry, there are no images matching your search query. Please try again!',
-          position: 'topRight',
-          backgroundColor: '#ef4040',
-          messageColor: '#fff',
-        });
-        return;
-      }
-      container.innerHTML = createMarkup(res.data.hits);
-      lightbox.refresh();
-      form.reset();
-    })
-    .catch(error => {
-      console.log(error);
-    })
-    .finally(() => {
-      loader.classList.add('hidden');
-    });
-});
-
-function createMarkup(arr) {
-  return arr
+export function createGallery(images) {
+  const markup = images
     .map(
       item => `
     <li class="gallery-item">
@@ -78,4 +41,19 @@ function createMarkup(arr) {
     `
     )
     .join('');
+
+  galleryContainer.innerHTML = markup;
+  lightbox.refresh();
+}
+
+export function clearGallery() {
+  galleryContainer.innerHTML = '';
+}
+
+export function showLoader() {
+  loader.classList.remove('hidden');
+}
+
+export function hideLoader() {
+  loader.classList.add('hidden');
 }
