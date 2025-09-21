@@ -5,6 +5,7 @@ import { showLoader } from './js/render-functions';
 import { hideLoader } from './js/render-functions';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import CrossMark from './img/cross-mark.svg';
 
 const form = document.querySelector('.form');
 const formInput = document.querySelector('.form-input');
@@ -26,18 +27,17 @@ form.addEventListener('submit', event => {
           position: 'topRight',
           backgroundColor: '#ef4040',
           messageColor: '#fff',
-          iconUrl: `${import.meta.env.BASE_URL}bi_x-octagon.svg`,
+          iconUrl: CrossMark,
         });
-        formInput.value = '';
         return;
       }
       createGallery(images);
-      formInput.value = '';
     })
     .catch(error => {
       console.log(error);
     })
     .finally(() => {
       hideLoader();
+      form.reset();
     });
 });
